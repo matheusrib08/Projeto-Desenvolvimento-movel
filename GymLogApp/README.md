@@ -1,149 +1,161 @@
-# 🏋️ GymLog — Diário de Treinos com Sensores
+# 🏋️ GymLog – Aplicativo de Registro de Treinos com Sensores
 
-> Projeto da disciplina **CCP150 – Desenvolvimento de Aplicativos Móveis** (FEI) · Prof. Vinicius
-> Autor: **_<SEU NOME COMPLETO>_** · RA: **_<SEU RA>_**
+Aplicativo móvel desenvolvido com **React Native e Expo**, com o objetivo de auxiliar praticantes de musculação no planejamento, execução e acompanhamento de seus treinos.
 
-Aplicativo móvel feito com **React Native (Expo)** para registrar treinos de musculação, contar repetições usando o **acelerômetro** do celular, acompanhar a evolução corporal e visualizar estatísticas.
+O GymLog permite cadastrar exercícios, registrar séries, acompanhar o histórico de atividades e monitorar a evolução corporal. Além disso, utiliza o acelerômetro do próprio celular para realizar a contagem automática de repetições.
 
 ---
 
-## 1. Visão Geral e Requisitos
+## 📱 Funcionalidades
 
-**Motivação:** muita gente anota treino em papel ou planilha e perde o histórico. Quis criar um app simples que guie o treino em tempo real (séries, descanso, cronômetro) e guarde tudo localmente.
+- **Início:** painel com resumo dos treinos, meta semanal e gráfico dos últimos sete dias.
+- **Cadastro de exercícios:** criação, edição e exclusão de exercícios, com grupos musculares, séries, repetições, carga e fotos.
+- **Montagem de treinos:** seleção e organização dos exercícios para cada sessão.
+- **Treino ativo:** cronômetro, controle de séries, ajuste de carga e temporizador de descanso.
+- **Contagem automática:** utilização do acelerômetro para detectar movimentos e contabilizar repetições.
+- **Contagem manual:** possibilidade de registrar repetições por meio de botões.
+- **Histórico:** consulta dos treinos realizados, duração, séries e volume total.
+- **Progresso corporal:** registro do peso, fotos e acompanhamento da evolução.
+- **Configurações:** personalização de metas, tempo de descanso e sensibilidade do acelerômetro.
 
-**Objetivo:** permitir montar treinos, executá-los com ajuda de sensores/vibração e acompanhar o progresso.
+---
 
-### Requisitos do projeto × onde foram atendidos
+## 🛠️ Tecnologias utilizadas
 
-| Requisito | Como foi atendido |
+| Tecnologia | Finalidade |
 |---|---|
-| Mínimo de 6 telas distintas | **9 telas**: Início, Exercícios, Formulário de Exercício, Montar Treino, Treino Ativo, Histórico, Detalhe do Treino, Progresso, Configurações |
-| Navegação com React Navigation | **Bottom Tabs** (5 abas) + **Native Stack** (telas de formulário, treino e detalhes) |
-| Imagens | Banner e ilustrações locais (`assets/`), fotos dos exercícios e fotos de progresso (câmera/galeria) |
-| Interface e UX | Tema escuro consistente, layout organizado, alinhamento e espaçamento padronizados (`src/theme.js`), componentes reutilizáveis (`src/components/UI.js`) |
-| Feedback ao usuário | Toasts animados, alertas de confirmação, validação com mensagens de erro nos campos, vibração, estados vazios ilustrados |
-| Banco de dados + CRUD completo | **SQLite** (`expo-sqlite`): salvar, recuperar, atualizar e remover em exercícios, treinos e registros corporais |
-| Sensor / atuador | **Acelerômetro** (chacoalhar = +1 repetição) e **vibração/haptics** (confirmações e fim do descanso) |
-
-> Telas de login/cadastro não foram implementadas, conforme as considerações do projeto.
+| React Native | Desenvolvimento mobile |
+| Expo | Ambiente de desenvolvimento |
+| JavaScript | Linguagem de programação |
+| React Navigation | Navegação entre telas |
+| Expo SQLite | Banco de dados local |
+| Expo Sensors | Leitura do acelerômetro |
+| Expo Haptics | Feedback tátil |
+| Expo Image Picker | Captura e seleção de imagens |
+| Expo Keep Awake | Manter a tela ligada |
+| React Native Safe Area Context | Gerenciamento de áreas seguras |
+| Git e GitHub | Controle de versão |
 
 ---
 
-## 2. Tecnologias Utilizadas
+## 🏗️ Arquitetura do projeto
 
-- **React Native** + **Expo** (JavaScript)
-- **React Navigation** (`native-stack`, `bottom-tabs`)
-- **expo-sqlite** — banco de dados local
-- **expo-sensors** — acelerômetro
-- **expo-haptics** e `Vibration` — atuador (vibração)
-- **expo-image-picker** — câmera e galeria
-- **expo-keep-awake** — mantém a tela ligada durante o treino
-- **@expo/vector-icons** (Ionicons)
-- **react-native-safe-area-context**, **react-native-screens**
+O projeto foi organizado em camadas, facilitando a manutenção e a organização do código.
 
-### Estrutura de pastas
-
-```
-App.js
-assets/               imagens locais
-src/
-  components/UI.js    botões, cards, campos, chips, steppers...
-  context/AppContext.js  configurações globais, toast e feedback tátil
-  db/database.js      criação das tabelas e todas as operações CRUD
-  navigation/index.js tabs + stack
-  screens/            as 9 telas
-  utils/              formatação e seleção de imagens
-  theme.js            cores, espaçamentos, grupos musculares
+```text
+GymLogApp/
+│
+├── src/
+│   ├── screens/       # Telas do aplicativo
+│   ├── components/    # Componentes reutilizáveis
+│   ├── context/       # Gerenciamento de estado global
+│   ├── db/            # Banco de dados SQLite
+│   ├── navigation/    # Configuração de navegação
+│   ├── utils/         # Funções utilitárias
+│   └── theme.js       # Tema visual
+│
+├── App.js
+├── package.json
+└── README.md
 ```
 
-### Modelo do banco de dados
+---
 
-- `exercises` — id, nome, grupo muscular, séries, repetições, carga, observações, foto
-- `workouts` — id, data/hora de início, duração, anotações
-- `workout_sets` — séries realizadas (FK → `workouts`, exclusão em cascata)
-- `body_logs` — peso, anotação e foto de progresso
-- `settings` — chave/valor (nome, meta semanal, descanso, sensor, vibração)
+## 🗄️ Banco de dados
+
+O aplicativo utiliza **SQLite** para armazenar os dados localmente, permitindo seu funcionamento sem conexão com a internet.
+
+O banco possui cinco tabelas principais:
+
+- `exercises`: cadastro dos exercícios.
+- `workouts`: registro dos treinos realizados.
+- `workout_sets`: armazenamento das séries e repetições.
+- `body_logs`: histórico de peso e fotos corporais.
+- `settings`: configurações personalizadas do aplicativo.
+
+São implementadas operações CRUD (Create, Read, Update e Delete) para gerenciamento dos dados.
 
 ---
 
-## 3. Funcionalidades
+## 📡 Utilização do acelerômetro
 
-- **Início:** saudação, meta semanal com barra de progresso, resumo geral (treinos, repetições, minutos), gráfico dos últimos 7 dias e atalho para o último treino.
-- **Exercícios (CRUD):** lista com busca e filtro por grupo muscular; criar, editar e excluir exercícios, com foto (câmera ou galeria) e validação dos campos.
-- **Montar treino:** escolha dos exercícios na ordem desejada, com contagem total de séries.
-- **Treino ativo:**
-  - cronômetro do treino e barra de progresso entre exercícios;
-  - **chacoalhar o celular conta +1 repetição** (acelerômetro com tempo mínimo entre detecções para evitar contagens duplas); também há botões `−` / `+`;
-  - ajuste de carga por série;
-  - **timer de descanso** automático entre séries, com `+15s` e `Pular`; ao terminar, o celular **vibra**;
-  - pular exercício, finalizar antes da hora e confirmação ao tentar sair;
-  - tela sempre acesa.
-- **Histórico:** todos os treinos com volume (kg), repetições e duração; excluir treino.
-- **Detalhe do treino:** séries agrupadas por exercício, **anotações editáveis** (Update) e exclusão.
-- **Progresso (CRUD):** registro de peso com foto, gráfico de evolução, variação total; editar e excluir registros.
-- **Configurações:** nome, meta semanal, tempo de descanso, ligar/desligar sensor, sensibilidade, **teste ao vivo do acelerômetro**, vibração e apagar dados.
+Um dos principais diferenciais do GymLog é a utilização do acelerômetro do smartphone para contar repetições.
 
-### Complexidade técnica
+O aplicativo realiza a leitura dos eixos X, Y e Z e calcula a magnitude do vetor de aceleração:
 
-- Consultas SQL agregadas (`SUM`, `COUNT DISTINCT`, subconsultas) para volume e estatísticas.
-- Transação (`withTransactionAsync`) ao salvar um treino com várias séries.
-- Detecção de movimento pela magnitude do vetor de aceleração `√(x²+y²+z²)` com limiar configurável e debounce.
-- Máquina de estados do treino (exercício → série → descanso) com cronômetro baseado em timestamps (não acumula erro).
-- Interceptação do botão voltar (`beforeRemove`) para não perder um treino em andamento.
-- Gráficos de barras desenhados à mão com `View` (sem biblioteca extra).
-- Imagens salvas em base64 dentro do próprio SQLite (não dependem de arquivos temporários).
-
----
-
-## 4. Demonstração
-
-> 📹 **Inclua aqui um GIF ou vídeo do app funcionando** (ex.: `docs/demo.gif`).
-
-```md
-![Demonstração](docs/demo.gif)
+```javascript
+magnitude = Math.sqrt(x * x + y * y + z * z);
 ```
 
-### Telas
+Quando a magnitude ultrapassa o limite de sensibilidade configurado, uma repetição é contabilizada.
 
-| Início | Exercícios | Treino ativo |
-|---|---|---|
-| ![](docs/home.png) | ![](docs/exercicios.png) | ![](docs/treino.png) |
-
-| Histórico | Progresso | Configurações |
-|---|---|---|
-| ![](docs/historico.png) | ![](docs/progresso.png) | ![](docs/config.png) |
+O sistema também utiliza um intervalo mínimo de 700 ms entre detecções para evitar contagens duplicadas.
 
 ---
 
-## 5. Instalação e Execução
+## ⚙️ Instalação e execução
 
-**Pré-requisitos:** [Node.js LTS](https://nodejs.org), Git e o app **Expo Go** instalado no celular (Android/iOS).
+### Pré-requisitos
+
+- Node.js (versão LTS)
+- Git
+- Expo Go instalado no smartphone
+- Computador e celular conectados à mesma rede Wi-Fi
+
+### 1. Clone o repositório
 
 ```bash
-# 1) clonar o repositório
-git clone <URL-DO-SEU-REPOSITORIO>
-cd GymLog
+git clone URL_DO_SEU_REPOSITORIO
+```
 
-# 2) instalar dependências
+### 2. Acesse a pasta do projeto
+
+```bash
+cd GymLogApp
+```
+
+### 3. Instale as dependências
+
+```bash
 npm install
+```
 
-# 3) iniciar o projeto
+### 4. Inicie o Expo
+
+```bash
 npx expo start
 ```
 
-Escaneie o QR Code com o **Expo Go** (Android) ou com a câmera (iOS). Celular e computador devem estar na **mesma rede Wi-Fi**.
+### 5. Execute no smartphone
 
-> ⚠️ O acelerômetro e a vibração **não funcionam em emulador de computador/web** — teste em um celular real.
+Escaneie o QR Code exibido no terminal utilizando o aplicativo Expo Go (Android) ou a câmera do iPhone (iOS).
+
+Caso existam problemas de conexão na rede local, utilize:
+
+```bash
+npx expo start --tunnel
+```
+
+**Observação:** para utilizar o acelerômetro, a vibração e a câmera, é necessário executar o aplicativo em um dispositivo físico.
 
 ---
 
-## 6. Aprendizados e Próximos Passos
+## 🎯 Objetivo do projeto
 
-> ✍️ **Escreva aqui, com suas palavras,** o que você aprendeu (ex.: uso de SQLite no Expo, leitura de sensores, React Navigation, organização em componentes) e as dificuldades enfrentadas (ex.: calibrar o limiar do acelerômetro, controlar o ciclo de vida de listeners).
+O GymLog foi desenvolvido como projeto acadêmico da disciplina **CCP150 – Desenvolvimento de Aplicativos Móveis**, do Centro Universitário FEI.
 
-**Próximos passos possíveis:**
-- Sincronizar os dados na nuvem (Firebase) e adicionar login.
-- Gráficos por exercício (evolução de carga).
-- Notificações locais para lembrar dos treinos.
-- Exportar histórico em CSV.
-- Treinos pré-montados (templates) e timer em segundo plano.
+O projeto teve como objetivo aplicar conceitos de desenvolvimento mobile, navegação entre telas, componentização, gerenciamento de estado, banco de dados relacional e integração com sensores e recursos nativos do smartphone.
+
+---
+
+## 👨‍💻 Desenvolvedores
+
+**Matheus Ribeiro Tintino**
+
+**Eduardo Ruiz**
+
+Centro Universitário FEI – 2026
+
+---
+
+⭐ Se gostou do projeto, deixe uma estrela no repositório!
