@@ -1,4 +1,4 @@
-# 🏋️ GymLog – Aplicativo de Registro de Treinos com Sensores
+#  GymLog – Aplicativo de Registro de Treinos com Sensores
 
 Aplicativo móvel desenvolvido com **React Native e Expo**, com o objetivo de auxiliar praticantes de musculação no planejamento, execução e acompanhamento de seus treinos.
 
@@ -6,7 +6,7 @@ O GymLog permite cadastrar exercícios, registrar séries, acompanhar o históri
 
 ---
 
-## 📱 Funcionalidades
+##  Funcionalidades
 
 - **Início:** painel com resumo dos treinos, meta semanal e gráfico dos últimos sete dias.
 - **Cadastro de exercícios:** criação, edição e exclusão de exercícios, com grupos musculares, séries, repetições, carga e fotos.
@@ -20,7 +20,7 @@ O GymLog permite cadastrar exercícios, registrar séries, acompanhar o históri
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+##  Tecnologias utilizadas
 
 | Tecnologia | Finalidade |
 |---|---|
@@ -38,7 +38,7 @@ O GymLog permite cadastrar exercícios, registrar séries, acompanhar o históri
 
 ---
 
-## 🏗️ Arquitetura do projeto
+##  Arquitetura do projeto
 
 O projeto foi organizado em camadas, facilitando a manutenção e a organização do código.
 
@@ -61,7 +61,7 @@ GymLogApp/
 
 ---
 
-## 🗄️ Banco de dados
+##  Banco de dados
 
 O aplicativo utiliza **SQLite** para armazenar os dados localmente, permitindo seu funcionamento sem conexão com a internet.
 
@@ -77,7 +77,7 @@ São implementadas operações CRUD (Create, Read, Update e Delete) para gerenci
 
 ---
 
-## 📡 Utilização do acelerômetro
+##  Utilização do acelerômetro
 
 Um dos principais diferenciais do GymLog é a utilização do acelerômetro do smartphone para contar repetições.
 
@@ -93,7 +93,7 @@ O sistema também utiliza um intervalo mínimo de 700 ms entre detecções para 
 
 ---
 
-## ⚙️ Instalação e execução
+##  Instalação e execução
 
 ### Pré-requisitos
 
@@ -140,7 +140,7 @@ npx expo start --tunnel
 
 ---
 
-## 🎯 Objetivo do projeto
+##  Objetivo do projeto
 
 O GymLog foi desenvolvido como projeto acadêmico da disciplina **CCP150 – Desenvolvimento de Aplicativos Móveis**, do Centro Universitário FEI.
 
@@ -148,7 +148,7 @@ O projeto teve como objetivo aplicar conceitos de desenvolvimento mobile, navega
 
 ---
 
-## 👨‍💻 Desenvolvedores
+##  Desenvolvedores
 
 **Matheus Ribeiro Tintino**
 
@@ -158,4 +158,4 @@ Centro Universitário FEI – 2026
 
 ---
 
-⭐ Se gostou do projeto, deixe uma estrela no repositório!
+ Se gostou do projeto, deixe uma estrela no repositório!
